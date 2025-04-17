@@ -54,7 +54,7 @@ int main(){
     //指针可以不被初始化，可以改变指向
 
     //空指针
-    //int *p = nullptr;
+    //int *p = nullptr;     //最新版本写法
     //int *p2 = 0;
     //int *p3 = NULL;
 

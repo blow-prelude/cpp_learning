@@ -8,8 +8,13 @@ void Student::setName(std::string name){
     }
 
 // 构造函数初始化参数可以在初始化列表中实现
+Student::Student(std::string name,const std::string &id,int age)
+                :_name(name),_age(age),_id(id)
+{
+
+}
 // 如果成员变量是引用类型，必须在初始化列表中初始化
-Student::Student(std::string name,int age,const std::string &id,std::string& sex)
+Student::Student(std::string name,const std::string &id,int age,std::string& sex)
                 :_name(name),_age(age),_id(id),_sex(sex)
 {
 
@@ -50,6 +55,11 @@ int main(){
     // stu1.name = "wtr";
     // stu1.id = "1005";
     // std::cout<<stu1.name<<std::endl;
+
+
+    Freshman stu2("wtr","1005",18);
+    std::cout<<stu2.getAge()<<std::endl;
+
 
     return 0;
 }

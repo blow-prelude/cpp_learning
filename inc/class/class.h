@@ -16,7 +16,7 @@ class Student{
 
     // 在创建对象的时候会构造函数，构造函数无返回类型，名字和类名相同
     // 在确定某个成员变量不会被修改时，可以使用常量引用类型,可以减小传参时拷贝造成的开销
-    Student(std::string name,int age,const std::string& id,std::string& sex);
+    Student(std::string name,const std::string& id,int age,std::string& sex);
 
     //拷贝构造
     //一定要传递引用类型，
@@ -49,4 +49,22 @@ class Student{
 
         int* _data;
 
+};
+
+//类可以继承
+class Freshman:public Student
+{
+    public:
+    //子类可以自己实现构造函数，也可以继承父类已有的构造函数
+    Freshman(std::string _name, string _id, int _age, std::string& sex)
+        : Student(_name, _id, _age, sex), _name(_name), _id(_id), _age(_age), _sex(sex) {
+
+    }
+
+
+    private:
+        std::string _name;
+        string _id;
+        int _age;
+        std::string& _sex;
 };

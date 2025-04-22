@@ -9,8 +9,8 @@ class Student{
     void setName(std::string name);
 
     // getter函数一般用const修饰，表示不会修改类的成员变量
-    int getAge()const{
-        return _age;
+    void getAge()const{
+        std::cout<<"age is "<<_age<<std::endl;
     }
 
 
@@ -52,19 +52,64 @@ class Student{
 };
 
 //类可以继承
-class Freshman:public Student
+class Undergraduate{
+    public:
+        Undergraduate(std::string name,int age)
+            :_name(name),_age(age){
+                //std::cout<<"Undergraduate constructor"<<std::endl;
+        }
+
+        void getName()const;
+
+        virtual void getAge()const;
+
+        //虚函数的特例是纯虚函数
+        //纯虚函数必须在子类中实现
+        virtual void getSex() = 0; // 纯虚函数，表示这个类是抽象类，不能实例化对象
+        //如果一个类有纯虚函数，那么这个类就是抽象类，不能实例化对象
+        //抽象类实现了很好的封装性，可以作为接口类，不能直接查看具体实现方法
+
+
+
+    protected:
+        std::string _name;
+        int _age;
+
+};
+
+
+class Freshman:public Undergraduate
 {
     public:
     //子类可以自己实现构造函数，也可以继承父类已有的构造函数
-    Freshman(std::string _name, string _id, int _age, std::string& sex)
-        : Student(_name, _id, _age, sex), _name(_name), _id(_id), _age(_age), _sex(sex) {
+    //如果子类继承了父类的成员变量而不是重新定义，那么子类就只能访问父类的public和protected类型的成员变量  
+
+    //创建对象时，会先调用父类的构造函数，再调用子类的构造函数
+    //销毁对象时，会先调用子类的析构函数，再调用父类的析构函数
+    Freshman(std::string name, int age)
+        : Undergraduate(name,  age){
+            //std::cout<<"Freshman constructor"<<std::endl;
 
     }
 
+    //子类可以直接重写（覆盖）父类的成员函数,重写要求函数名，参数列表，返回值都一致
+    void getName()const;
+
+    //虚函数是一种特殊的重写,是实现多态的基础
+    //如果父类的成员函数是虚函数，那么子类重写时也要加上virtual关键字
+    //为了在编译阶段就能检查出错误，需要在子类的虚函数的声明中加上override关键字
+    virtual void getAge()const override;
+
+    virtual void getSex()override
+    {
+        std::cout<<"i am man"<<std::endl;
+    } 
+
 
     private:
-        std::string _name;
-        string _id;
-        int _age;
-        std::string& _sex;
+    //父类中的成员变量，子类无需重复定义
+        //std::string _name;
+        //string _id;
+        //int _age;
+        
 };

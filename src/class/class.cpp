@@ -39,8 +39,26 @@ Student::Student(Student&& stu)
 }
 
 
+//析构函数
 Student::~Student(){
     delete _data;
+}
+
+
+void Undergraduate::getName()const{
+            std::cout<<"Undergraduate name is "<<_name<<std::endl;
+        }
+
+void Undergraduate::getAge()const{
+            std::cout<<"Undergraduate age is "<<_age<<std::endl;
+        }   
+
+void Freshman::getAge()const{
+    std::cout<<"Freshman age is "<<_age<<std::endl;
+}
+
+void Freshman::getName()const{
+    std::cout<<"Freshman name is "<<_name<<std::endl;
 }
 
 int main(){
@@ -52,8 +70,25 @@ int main(){
     // std::cout<<stu1.name<<std::endl;
 
 
-    Freshman stu2("wtr","1005",18,"male");
-    std::cout<<stu2.getAge()<<std::endl;
+    // Undergraduate stu1("wtr",18);
+    // Freshman stu2("wjx",18,"1006");
+    // stu1.getName();
+    // stu2.getName();
+    //stu2.getAge();
+
+    // 注：getName()是普通的重写，而gerAge*()是虚函数的重写
+    
+    // 通过基类指针调用派生类的函数,对于普通的重写，基类指针只能调用基类的函数
+    Undergraduate* up=new Freshman("wtr",18);
+    up->getName();
+    Freshman* fp=new Freshman("wtr",18);
+    fp->getName();
+
+    // 通过基类指针调用派生类的虚函数，对于虚函数，基类指针可以调用派生类的函数
+    up->getAge();
+    fp->getAge();
+
+
 
 
     return 0;

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 #include "../../inc/class/class.h"
 
 // 在源文件里实现类的成员函数需要  类：：函数名，表示这个函数是属于哪个类的
@@ -29,6 +30,30 @@ Student::Student(const Student& stu)
 
 }
 
+// 拷贝赋值运算符
+Student &Student::operator=(const Student&student){
+    //先判断是否为自拷贝
+    //this是当前对象的指针
+    if(this == &student){
+        return *this;
+    }
+    
+    //对成员变量进行赋值
+    this->_name = student._name;
+    this->_age = student._age;
+    this->_id = student._id;
+
+    // 对于指针类型的成员变量，需要判断原先是否已经分配了内存
+    if(_data != nullptr){
+        delete _data;
+    }
+    // 重新分配内存
+    _data = new int();
+    *_data = *(student._data);
+}
+
+
+
 // 移动构造函数
 Student::Student(Student&& stu)
 :_name(std::move(stu._name)),_age(std::move(stu._age)),_id(std::move(stu._id)),_sex(stu._sex)
@@ -36,6 +61,26 @@ Student::Student(Student&& stu)
     // 移动构造的浅拷贝和深拷贝同理
     // int * _data = new int();
     // *_data = std::move(*stu._data);
+}
+// 移动赋值运算符
+Student& Student::operator=(Student&& stu){
+    //先判断是否为自拷贝
+    if(this == &stu){
+        return *this;
+    }
+    
+    //对成员变量进行移动
+    this->_name = std::move(stu._name);
+    this->_age = std::move(stu._age);
+    this->_id = std::move(stu._id);
+
+    // 对于指针类型的成员变量，需要判断原先是否已经分配了内存
+    if(_data != nullptr){
+        delete _data;
+    }
+    // 重新分配内存
+    _data = new int();
+    *_data = std::move(*(stu._data));
 }
 
 
@@ -59,6 +104,12 @@ void Freshman::getAge()const{
 
 void Freshman::getName()const{
     std::cout<<"Freshman name is "<<_name<<std::endl;
+}
+
+
+// 友元函数
+void knowyourAge(Freshman& freshman){
+    std::cout<<"i am "<<freshman._age<<std::endl;
 }
 
 int main(){
@@ -87,6 +138,20 @@ int main(){
     // 通过基类指针调用派生类的虚函数，对于虚函数，基类指针可以调用派生类的函数
     up->getAge();
     fp->getAge();
+
+    // 如果一个基类的指针指向派生类的对象，那么delete该指针时只会调用基类的析构函数。   
+    // 而由于派生类的内存往往大于基类，就会造成内存泄漏
+    // 解决方法是将基类的析构函数声明为虚函数，这样就会调用派生类的析构函数
+
+
+
+    // 容器与继承
+    // 假设定义了基类的容器，但是向其中添加的是派生类的对象，这时就会发生切片，即派生类的对象会被切片成基类的对象
+    // 解决方法是使用指针来存储对象，这样就不会发生切片
+    // 但是使用指针或引用时需要注意内存的管理，避免内存泄漏
+    std::vector<Undergraduate*> vec;
+    vec.push_back(new Freshman("wtr",18));
+    vec[0]->getName();
 
 
 

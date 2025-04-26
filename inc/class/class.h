@@ -128,6 +128,17 @@ class Freshman:public Undergraduate
     //友元类
     friend class Junior; // 友元类，表示Junior类可以访问Freshman类的私有成员变量
 
+
+
+    //运算符重载
+    //运算符重载是对已有的运算符进行重载，使其可以对类对象进行操作
+    Freshman& operator+(const Freshman& freshman);
+
+    //最常用的运算符重载是重载<<，使其可以输出类对象
+    //为了连锁调用，返回值是引用类型
+    friend std::ostream& operator<<(std::ostream& os, const Freshman& freshman);
+   
+
     private:
     //父类中的成员变量，子类无需重复定义
         //std::string _name;

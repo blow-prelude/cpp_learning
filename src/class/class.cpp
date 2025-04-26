@@ -50,6 +50,7 @@ Student &Student::operator=(const Student&student){
     // 重新分配内存
     _data = new int();
     *_data = *(student._data);
+    return *this;
 }
 
 
@@ -81,6 +82,7 @@ Student& Student::operator=(Student&& stu){
     // 重新分配内存
     _data = new int();
     *_data = std::move(*(stu._data));
+    return *this;
 }
 
 
@@ -112,6 +114,21 @@ void knowyourAge(Freshman& freshman){
     std::cout<<"i am "<<freshman._age<<std::endl;
 }
 
+
+//运算符重载之重载+
+Freshman& Freshman::operator+(const Freshman& freshman){
+    //运算符重载的实现
+    this->_age=this->_age+freshman._age;
+    return *this;
+}
+
+//运算符重载之重载<<
+std::ostream& operator<<(std::ostream& os,const Freshman& freshman){
+    os<<"Freshman name is "<<freshman._name<<std::endl
+        <<"Freshman age is "<<freshman._age<<std::endl;
+        return os;
+}
+
 int main(){
 
     // Student stu1;
@@ -127,7 +144,8 @@ int main(){
     // stu2.getName();
     //stu2.getAge();
 
-    // 注：getName()是普通的重写，而gerAge*()是虚函数的重写
+    /*
+    // 注：getName()是普通的重写，而getAge*()是虚函数的重写
     
     // 通过基类指针调用派生类的函数,对于普通的重写，基类指针只能调用基类的函数
     Undergraduate* up=new Freshman("wtr",18);
@@ -152,6 +170,11 @@ int main(){
     std::vector<Undergraduate*> vec;
     vec.push_back(new Freshman("wtr",18));
     vec[0]->getName();
+    */
+
+    // 重载运算符 <<,可以直接输出对象
+    // Freshman fre1("wtr",18);
+    // std::cout<<"freshman is "<<fre1;
 
 
 

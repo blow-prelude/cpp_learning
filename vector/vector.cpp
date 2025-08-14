@@ -2,25 +2,25 @@
 #include <string>
 #include <vector>
 
-int main(){
+int main()
+{
 
     // 初始化
-    std::vector<int> v1={2,3,5,7};
-    std::vector<int> v2(5,10);
+    std::vector<int> v1 = {2, 3, 5, 7};
+    std::vector<int> v2(5, 10);
     std::vector<int> v3(v2);
     // 可以遍历输出
     // std::cout<<"v1=";
-    //c++风格的for循环
+    // c++风格的for循环
     // for (int i:v1){
     //     std::cout<<i<<' ';
     // }
     // std::cout<<std::endl;
 
-    //也可以使用迭代器
-    // for(auto it=v1.begin();it!=v1.end();it++){
-    //     std::cout<<*it<<' ';
-    // }
-
+    // 也可以使用迭代器
+    //  for(auto it=v1.begin();it!=v1.end();it++){
+    //      std::cout<<*it<<' ';
+    //  }
 
     // 向量的基本操作   增删改查
     /*
@@ -90,33 +90,31 @@ int main(){
     }
     */
 
-   //向量配合复合数据类型风味更佳
-   /*
-   struct Student{
-    std::string id;
-    std::string name;
-    int age;
-   };
+    // 向量配合复合数据类型风味更佳
+    /*
+    struct Student{
+     std::string id;
+     std::string name;
+     int age;
+    };
 
-   std::vector<Student> stu1;
-   stu1.push_back({"1005","wtr",18});
-   stu1.push_back({"1006","wjx",19});
+    std::vector<Student> stu1;
+    stu1.push_back({"1005","wtr",18});
+    stu1.push_back({"1006","wjx",19});
 
-   //这里在循环输出时最好使用引用，可以减小开销。  因为如果没有引用的话就会把数据拷贝一份给临时变量stu
-   for(auto &stu:stu1){
-    std::cout<<stu.id<<' ';
-    std::cout<<stu.name<<' ';
-    std::cout<<stu.age<<' ';
-   }
-   std::cout<<std::endl;
-   */
+    //这里在循环输出时最好使用引用，可以减小开销。  因为如果没有引用的话就会把数据拷贝一份给临时变量stu
+    for(auto &stu:stu1){
+     std::cout<<stu.id<<' ';
+     std::cout<<stu.name<<' ';
+     std::cout<<stu.age<<' ';
+    }
+    std::cout<<std::endl;
+    */
 
-    //algorithm里封装了很多算法，如排序,反转,查找，预留空间，收缩容量
-    //可以规定排序规则
-    //std::sort(v1.begin(),v1.end());
-     //std::reverse(v1.begin(),v1.end());
+    // algorithm里封装了很多算法，如排序,反转,查找，预留空间，收缩容量
+    // 可以规定排序规则
+    // std::sort(v1.begin(),v1.end());
+    // std::reverse(v1.begin(),v1.end());
 
-
-    
     return 0;
 }
